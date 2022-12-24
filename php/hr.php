@@ -73,7 +73,21 @@ function get_employee($employee_id, $conn){
     return $row;
 }
 
-function delete_employee(){    
+function delete_employee(){
+      // Search for the employee
+        $query = "SELECT * FROM employee WHERE employee.id='$namemployee_id';";
+        $result = mysqli_query($conn, $query);
+
+        // If the employee is found, delete them from the database
+        if (mysqli_num_rows($result) > 0) {
+            $row = mysqli_fetch_assoc($result);
+            $id = $row['id'];
+            $sql = "DELETE FROM employees WHERE id='$id'";
+            mysqli_query($conn, $sql);
+            echo "Employee '$name' was deleted from the database.";
+        } else {
+            echo "Employee '$name' was not found in the database.";
+        }    
 }
 
 ?>
